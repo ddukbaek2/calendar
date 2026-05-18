@@ -1,0 +1,16 @@
+services:
+    calendar:
+        build: .
+        image: calendar:latest
+        container_name: calendar
+        restart: unless-stopped
+        ports:
+            - "${CALENDAR_PORT:-3000}:3000"
+        environment:
+            PORT: 3000
+            DATA_DIR: /data
+        volumes:
+            - calendar-data:/data
+
+volumes:
+    calendar-data:

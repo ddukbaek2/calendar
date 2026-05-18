@@ -1,0 +1,382 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #e6e6e6;
+    font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px;
+    gap: 12px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbar-spacer {
+    flex: 1;
+}
+
+.toolbar h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    min-width: 160px;
+    text-align: center;
+}
+
+button {
+    appearance: none;
+    background-color: #2d2d2d;
+    color: #e6e6e6;
+    border: 1px solid #3d3d3d;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #383838;
+}
+
+button.primary {
+    background-color: #2f6fed;
+    border-color: #2f6fed;
+}
+
+button.primary:hover {
+    background-color: #4985f3;
+}
+
+button.danger {
+    background-color: #b03030;
+    border-color: #b03030;
+}
+
+button.danger:hover {
+    background-color: #c84444;
+}
+
+.weekday-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    font-size: 13px;
+    color: #aaaaaa;
+}
+
+.weekday-row > div {
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.weekday-row > div.weekday-0 {
+    color: #ff6b6b;
+}
+
+.weekday-row > div.weekday-6 {
+    color: #6ba9ff;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
+}
+
+.day-cell {
+    background-color: #262626;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.day-cell:hover {
+    background-color: #2c2c2c;
+}
+
+.day-cell.outside-month {
+    opacity: 0.4;
+}
+
+.day-cell.today .day-number {
+    background-color: #2f6fed;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 0 8px;
+}
+
+.day-number {
+    font-size: 13px;
+    align-self: flex-start;
+}
+
+.day-cell.weekday-0 .day-number {
+    color: #ff6b6b;
+}
+
+.day-cell.weekday-6 .day-number {
+    color: #6ba9ff;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+}
+
+.event-chip {
+    background-color: #2f6fed;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.event-chip:hover {
+    background-color: #4985f3;
+}
+
+.event-chip.all-day {
+    background-color: #3a7a3a;
+}
+
+.event-chip.all-day:hover {
+    background-color: #4a8f4a;
+}
+
+.dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.dialog-backdrop.hidden {
+    display: none;
+}
+
+.dialog {
+    background-color: #2a2a2a;
+    border: 1px solid #3d3d3d;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 320px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dialog h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: #aaaaaa;
+}
+
+.field input,
+.field select {
+    background-color: #1e1e1e;
+    color: #e6e6e6;
+    border: 1px solid #3d3d3d;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: #2f6fed;
+}
+
+.field input[type="color"] {
+    padding: 2px;
+    width: 48px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.field input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.checkbox-field {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    color: #e6e6e6;
+    font-size: 14px;
+}
+
+.checkbox-field input {
+    width: auto;
+    margin: 0;
+    accent-color: #2f6fed;
+}
+
+.time-row {
+    display: flex;
+    gap: 8px;
+}
+
+.time-row .field {
+    flex: 1;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.dialog-actions .spacer {
+    flex: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.filter-bar:empty {
+    display: none;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.filter-chip input[type="checkbox"] {
+    accent-color: #2f6fed;
+    margin: 0;
+}
+
+.filter-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    display: inline-block;
+    border: 1px solid #00000033;
+}
+
+.filter-label {
+    line-height: 1;
+}
+
+.group-dialog {
+    min-width: 420px;
+}
+
+.group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.group-list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.group-list-item input[type="color"] {
+    background-color: #1e1e1e;
+    border: 1px solid #3d3d3d;
+    border-radius: 4px;
+    padding: 2px;
+    width: 40px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.group-list-item input[type="text"] {
+    flex: 1;
+    background-color: #1e1e1e;
+    color: #e6e6e6;
+    border: 1px solid #3d3d3d;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.group-list-item input[type="text"]:focus {
+    outline: none;
+    border-color: #2f6fed;
+}
+
+.group-empty {
+    color: #888888;
+    font-size: 13px;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.group-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    border-top: 1px solid #3d3d3d;
+    padding-top: 12px;
+}
+
+.group-form .field {
+    flex: 1;
+}
+
+.group-form .field:nth-child(2) {
+    flex: 0 0 auto;
+}

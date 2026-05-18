@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.vscode
+.logs
+data.db
+data.db-journal
+data.db-wal
+data.db-shm
+Dockerfile
+.dockerignore
+docker-compose.yml
+*.md
+LICENSE

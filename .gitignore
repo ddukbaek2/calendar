@@ -141,3 +141,14 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Calendar app local data
+data.db
+data.db-journal
+data.db-wal
+data.db-shm
+.logs/
+
+# Local Claude instructions
+CLAUDE.md
+.claude/

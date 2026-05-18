@@ -1,0 +1,15 @@
+{
+    "name": "calendar",
+    "version": "0.1.0",
+    "description": "월간 캘린더 웹서비스 (Express + SQLite)",
+    "private": true,
+    "type": "commonjs",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "better-sqlite3": "^11.3.0",
+        "express": "^4.21.0"
+    }
+}
